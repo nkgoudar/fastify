@@ -18,7 +18,6 @@ const build = (opts = {}) => {
   // app.register(me, { prefix: "/v2/me" });
   // app.register(auth, { prefix: "/v2/auth" });
 
-
   app.register(userRoute, { prefix: "/api/users" });
 
   return app;
