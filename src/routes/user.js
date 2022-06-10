@@ -1,5 +1,6 @@
-const { getUsers, createUser } = require("../controllers/user");
-
+const { getUsers, createUser, updateUser, deleteUser } = require("../controllers/user");
+const ajv = require("../plugins/ajv");
+const { createUserSchema } = require("../validations/user");
 /*
 module.exports = [
   {
@@ -15,11 +16,15 @@ module.exports = [
 ];
 */
 
-const userRoute = (fastify, _, done) => {
+const userRoute = (fastify, opts, done) => {
   // fastify.addHook("onRequest", (request) => request.jwtVerify());
 
   fastify.get("/", getUsers);
-  fastify.post("/", createUser);
+  fastify.post("/", {
+    schema: createUserSchema
+  }, createUser);
+  fastify.patch("/", updateUser);
+  fastify.delete("/", deleteUser);
 
   done();
 };
